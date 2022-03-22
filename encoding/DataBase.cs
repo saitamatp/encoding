@@ -7,8 +7,7 @@ using System.Data.OleDb;
 
 namespace encoding
 {
-
-    class data
+   class data
     {
         public struct expense_detail
         {
@@ -48,9 +47,9 @@ namespace encoding
                 while (reader.Read())
                 {
                     a.Add(new expense_detail(
-                        Base64Encode(reader[0].ToString()),
+                        Encode(reader[0].ToString()),
                         reader[1].ToString(),
-                        Base64Encode(reader[2].ToString()),
+                        Encode(reader[2].ToString()),
                         reader[3].ToString(),
                         int.Parse($"{reader[4]}"),
                         int.Parse($"{reader[5]}"),
@@ -62,12 +61,12 @@ namespace encoding
             }
             return a;
         }
-        public static string Base64Encode(string plainText)
+        public static string Encode(string plainText)
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText.Trim());
             return System.Convert.ToBase64String(plainTextBytes);
         }
-        public static string Base64Decode(string base64EncodedData)
+        public static string Decode(string base64EncodedData)
         {
             var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
